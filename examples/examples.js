@@ -2,7 +2,7 @@ var async = require('async');
 
 var Client = require('../lib/client').Client;
 
-var client = new Client('http://127.0.0.1:9000/v1.0', '7777', 'dev', {'debug': true});
+var client = new Client('http://127.0.0.1:9000/v1.0/', '7777', 'dev', {'debug': true});
 
 async.waterfall([
   function listSessions(callback) {
@@ -15,7 +15,7 @@ async.waterfall([
   },
 
   function createSession(callback) {
-    client.sessions.create(15, null, function(err, url) {
+    client.sessions.create(15, null, null, function(err, url) {
       console.log('Create session');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -43,7 +43,7 @@ async.waterfall([
   },
 
   function listEvents(callback) {
-    client.events.list(null, function(err, url) {
+    client.events.list(0, {}, function(err, url) {
       console.log('List events');
       console.log('error: ' + err);
       console.log('location: ' + url);
