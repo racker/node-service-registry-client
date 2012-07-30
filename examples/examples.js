@@ -78,12 +78,49 @@ async.waterfall([
     });
   },
 
-  function getService(callback) {
-    client.services.get(1, null, null, function(err, url) {
-      console.log('Get service');
+  function fetchService(callback) {
+    client.services.fetch(1, null, null, function(err, url) {
+      console.log('Fetch service');
+      console.log('error: ' + err);
+      console.log('location: ' + url);
+      callback();
+    });
+  },
+
+  function listConfiguration(callback) {
+    client.configuration.list(null, function(err, url) {
+      console.log('List configuration');
+      console.log('error: ' + err);
+      console.log('location: ' + url);
+      callback();
+    });
+  },
+
+  function fetchConfiguration(callback) {
+    client.configuration.fetch(1, null, null, function(err, url) {
+      console.log('Fetch configuration');
+      console.log('error: ' + err);
+      console.log('location: ' + url);
+      callback();
+    });
+  },
+
+  function updateConfiguration(callback) {
+    client.configuration.fetch(1, {'value': 'foo'}, null, function(err, url) {
+      console.log('Update configuration');
+      console.log('error: ' + err);
+      console.log('location: ' + url);
+      callback();
+    });
+  },
+
+  function removeConfiguration(callback) {
+    client.configuration.remove(1, null, null, function(err, url) {
+      console.log('Remove configuration');
       console.log('error: ' + err);
       console.log('location: ' + url);
       callback();
     });
   }
+
 ], process.exit);
