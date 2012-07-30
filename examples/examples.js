@@ -15,7 +15,7 @@ async.waterfall([
   },
 
   function createSession(callback) {
-    client.sessions.create(15, null, null, function(err, url) {
+    client.sessions.create(15, null, function(err, url) {
       console.log('Create session');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -24,7 +24,7 @@ async.waterfall([
   },
 
   function heartbeat(callback) {
-    client.sessions.heartbeat(1, null, null, function(err, url) {
+    client.sessions.heartbeat(1, 'someToken', function(err, url) {
       console.log('Heartbeat');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -34,7 +34,7 @@ async.waterfall([
 
   function updateSession(callback) {
     var payload = {'heartbeat_timeout': 20};
-    client.sessions.update(1, payload, null, function(err, url) {
+    client.sessions.update(1, payload, function(err, url) {
       console.log('Update session');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -43,7 +43,7 @@ async.waterfall([
   },
 
   function listEvents(callback) {
-    client.events.list(0, {}, function(err, url) {
+    client.events.list(0, null, function(err, url) {
       console.log('List events');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -61,7 +61,7 @@ async.waterfall([
   },
 
   function joinService(callback) {
-    client.services.join(1, 1, null, null, function(err, url) {
+    client.services.join(1, 1, null, function(err, url) {
       console.log('Join service');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -70,7 +70,7 @@ async.waterfall([
   },
 
   function leaveService(callback) {
-    client.services.leave(1, 1, null, null, function(err, url) {
+    client.services.leave(1, 1, function(err, url) {
       console.log('Leave service');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -78,8 +78,8 @@ async.waterfall([
     });
   },
 
-  function fetchService(callback) {
-    client.services.fetch(1, null, null, function(err, url) {
+  function getService(callback) {
+    client.services.get(1, function(err, url) {
       console.log('Fetch service');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -96,8 +96,8 @@ async.waterfall([
     });
   },
 
-  function fetchConfiguration(callback) {
-    client.configuration.fetch(1, null, null, function(err, url) {
+  function getConfiguration(callback) {
+    client.configuration.get(1, function(err, url) {
       console.log('Fetch configuration');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -105,8 +105,8 @@ async.waterfall([
     });
   },
 
-  function updateConfiguration(callback) {
-    client.configuration.fetch(1, {'value': 'foo'}, null, function(err, url) {
+  function setConfiguration(callback) {
+    client.configuration.set(1, {'value': 'foo'}, function(err, url) {
       console.log('Update configuration');
       console.log('error: ' + err);
       console.log('location: ' + url);
@@ -115,7 +115,7 @@ async.waterfall([
   },
 
   function removeConfiguration(callback) {
-    client.configuration.remove(1, null, null, function(err, url) {
+    client.configuration.remove(1, function(err, url) {
       console.log('Remove configuration');
       console.log('error: ' + err);
       console.log('location: ' + url);
