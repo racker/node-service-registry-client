@@ -17,6 +17,8 @@ var options = {'debug': true};
 var cilent = var client = new Client('http://127.0.0.1:9000/v1.0/', '7777', 'dev', options);
 ```
 
+## Sessions
+
 Create a session with a heartbeat timeout of 10:
 
 ```Javascript
@@ -26,8 +28,6 @@ var options = {'key': 'value'},
 
 client.sessions.create(heartbeatTimeout, options, function(err, url, data) {...});
 ```
-
-## Sessions
 
 List sessions:
 
