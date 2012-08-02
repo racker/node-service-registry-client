@@ -67,10 +67,26 @@ client.events.list(sinceToken, function(err, data) {...});
 List services:
 
 ```Javascript
+var options = {};
+
+client.services.list(options, function(err, data) {...});
+```
+
+List services for a specific tag:
+
+```Javascript
 var tag = 'tag',
     options = {};
 
-client.services.list(tag, options, function(err, data) {...});
+client.services.listForTag(tag, options, function(err, data) {...});
+```
+
+Get service by ID:
+
+```Javascript
+var serviceId = 'messenger1';
+
+client.services.get(serviceId, function(err, data) {...});
 ```
 
 ## Configuration
