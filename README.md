@@ -89,6 +89,31 @@ var serviceId = 'messenger1';
 client.services.get(serviceId, function(err, data) {...});
 ```
 
+Create a new service:
+
+```Javascript
+var sessionId = 'sessionId',
+    serviceId = 'messenger1',
+    payload = {
+      'tags': ['messenger', 'stats'],
+      'metadata': {'someKey': 'someValue', 'anotherKey': 'anotherValue'}
+    };
+
+client.services.get(sessionId, serviceId, payload, function(err, data) {...});
+```
+
+Update existing service:
+
+```Javascript
+var serviceId = 'messenger1',
+    payload = {
+      'tags': ['tag1', 'tag2'],
+      'metadata': {'aKey': 'aValue'}
+    };
+
+client.services.update(serviceId, payload, function(err, data) {...});
+```
+
 ## Configuration
 
 List configuration values:
