@@ -57,9 +57,9 @@ client.sessions.heartbeat(sessionId, token, function(err, data) {...});
 List events:
 
 ```Javascript
-var sinceToken = 'last-seen-token';
+var marker = 'last-seen-token';
 
-client.events.list(sinceToken, function(err, data) {...});
+client.events.list(marker, function(err, data) {...});
 ```
 
 ## Services
