@@ -26,7 +26,7 @@ Create a session with a heartbeat timeout of 10:
 var options = {'key': 'value'},
     heartbeatTimeout = 10;
 
-client.sessions.create(heartbeatTimeout, options, function(err, url, data) {...});
+client.sessions.create(heartbeatTimeout, options, function(err, id, data, hb) {...});
 ```
 
 List sessions:
@@ -38,7 +38,7 @@ client.sessions.list(null, function(err, data) {...});
 Get session:
 
 ```Javascript
-var sessionId = 1;
+var sessionId = 'seFoo';
 
 client.sessions.get(sessionId, function(err, data) {...});
 ```
@@ -46,10 +46,21 @@ client.sessions.get(sessionId, function(err, data) {...});
 Heartbeat a session:
 
 ```Javascript
-var sessionId = 1,
+var sessionId = 'seFoo',
     token = 'token';
 
 client.sessions.heartbeat(sessionId, token, function(err, data) {...});
+```
+
+Update existing session:
+
+```Javascript
+var sessionId = 'seFoo',
+    payload = {
+      'heartbeat_timeout': 15
+    };
+
+client.sessions.update(serviceId, payload, function(err, id) {...});
 ```
 
 ## Events
@@ -99,7 +110,7 @@ var sessionId = 'sessionId',
       'metadata': {'someKey': 'someValue', 'anotherKey': 'anotherValue'}
     };
 
-client.services.get(sessionId, serviceId, payload, function(err, data) {...});
+client.services.create(sessionId, serviceId, payload, function(err, id) {...});
 ```
 
 Update existing service:
@@ -111,7 +122,7 @@ var serviceId = 'messenger1',
       'metadata': {'aKey': 'aValue'}
     };
 
-client.services.update(serviceId, payload, function(err, data) {...});
+client.services.update(serviceId, payload, function(err, id) {...});
 ```
 
 ## Configuration
