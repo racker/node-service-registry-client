@@ -24,7 +24,8 @@
     "async": "= 0.1.18",
     "sprintf": "= 0.1.1",
     "logmagic": "= 0.1.4",
-    "rackspace-shared-utils": "0.1.11"
+    "rackspace-shared-utils": "0.1.11",
+    "keystone-client": ">= 0.2.0"
   },
   "devDependencies": {
      "whiskey": "0.6.9",
