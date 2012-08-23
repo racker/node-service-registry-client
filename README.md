@@ -12,9 +12,13 @@ Library is distributed under the [Apache license](http://www.apache.org/licenses
 var Client = require('farscape-client').Client;
 
 // An options Object can have a key 'debug' to enable debug mode and print log messages:
-var options = {'debug': true};
+var options = {'debug': true},
+  username = 'username',
+  apiKey = 'apiKey',
+  region = 'us',
+  options = {'debug': true};
 
-var cilent = var client = new Client('http://127.0.0.1:9000/v1.0/', '7777', 'dev', options);
+var cilent = var client = new Client('http://127.0.0.1:9000/v1.0/', username, apiKey, region, options);
 ```
 
 ## Sessions
