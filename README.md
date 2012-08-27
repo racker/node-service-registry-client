@@ -18,7 +18,7 @@ var options = {'debug': true},
   region = 'us',
   options = {'debug': true};
 
-var cilent = var client = new Client('http://127.0.0.1:9000/v1.0/', username, apiKey, region, options);
+var cilent = var client = new Client(username, apiKey, region, options);
 ```
 
 ## Sessions
