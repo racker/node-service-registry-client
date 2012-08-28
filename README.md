@@ -64,7 +64,7 @@ var sessionId = 'seFoo',
       'heartbeat_timeout': 15
     };
 
-client.sessions.update(serviceId, payload, function(err, id) {...});
+client.sessions.update(sessionId, payload, function(err, id) {...});
 ```
 
 ## Events
