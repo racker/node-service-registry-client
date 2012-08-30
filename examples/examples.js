@@ -4,7 +4,7 @@ var Client = require('../lib/client').Client;
 
 var client = new Client('joe', 'dev', null, {'debug': true,
   'url': 'http://127.0.0.1:9000/v1.0/',
-  'auth_url': 'http://127.0.0.1:23542/v2.0'});
+  'authUrl': 'http://127.0.0.1:23542/v2.0'});
 
 async.waterfall([
   function createSession(callback) {
@@ -18,16 +18,16 @@ async.waterfall([
 
   function getSession(seId, initialToken, callback) {
     client.sessions.get(seId, function(err, data) {
-      console.log('Create session');
+      console.log('Get session');
       console.log('error: ' + err);
       console.log('data: ' + data);
       callback(seId, initialToken);
     });
   },
 
-  function heartbeat(seId, initialToken, callback) {
+  function heartbeatSession(seId, initialToken, callback) {
     client.sessions.heartbeat(seId, initialToken, function(err, nextToken) {
-      console.log('Heartbeat');
+      console.log('Heartbeat session');
       console.log('error: ' + err);
       console.log('next token: ' + nextToken);
       callback(seId);
@@ -41,96 +41,99 @@ async.waterfall([
       console.log('Update session');
       console.log('error: ' + err);
       console.log('session id: ' + id);
+      callback(seId);
+    });
+  },
+
+  function listSessions(seId, callback) {
+    client.sessions.list(null, function(err, data) {
+      console.log('List sessions');
+      console.log('error: ' + err);
+      console.log('data: ' + data);
+      callback(seId);
+    });
+  },
+
+  function createService(seId, callback) {
+    var payload = {
+      'tags': ['tag1', 'tag2'],
+      'metadata': {'region': 'dfw', 'port': '9000'}
+    };
+
+    client.services.create(seId, 'serviceId', payload, function(err, id) {
+      console.log('Create service');
+      console.log('error: ' + err);
+      console.log('service id: ' + id);
       callback();
     });
   },
 
-  function listSessions(callback) {
-    client.sessions.list(null, function(err, data) {
-      console.log('List sessions');
+  function getService(callback) {
+    client.services.get('serviceId', function(err, data) {
+      console.log('Get service');
       console.log('error: ' + err);
       console.log('data: ' + data);
       callback();
     });
   },
 
-  function listEvents(callback) {
-    client.events.list(0, null, function(err, url) {
-      console.log('List events');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
   function listServices(callback) {
-    client.services.list(null, function(err, url) {
+    client.services.list({}, function(err, data) {
       console.log('List services');
       console.log('error: ' + err);
-      console.log('location: ' + url);
+      console.log('data: ' + data);
       callback();
     });
   },
 
-  function joinService(callback) {
-    client.services.join(1, 1, null, function(err, url) {
-      console.log('Join service');
+  function removeService(callback) {
+    client.services.remove('serviceId', function(err) {
+      console.log('Remove service');
       console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
-  function leaveService(callback) {
-    client.services.leave(1, 1, function(err, url) {
-      console.log('Leave service');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
-  function getService(callback) {
-    client.services.get(1, function(err, url) {
-      console.log('Fetch service');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
-  function listConfiguration(callback) {
-    client.configuration.list(null, function(err, url) {
-      console.log('List configuration');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
-  function getConfiguration(callback) {
-    client.configuration.get(1, function(err, url) {
-      console.log('Fetch configuration');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
       callback();
     });
   },
 
   function setConfiguration(callback) {
-    client.configuration.set(1, {'value': 'foo'}, function(err, url) {
-      console.log('Update configuration');
+    client.configuration.set('configId', 'configValue', function(err) {
+      console.log('Set configuration');
+      console.log('error: ' + err);
+      callback();
+    });
+  },
+
+  function getConfiguration(callback) {
+    client.configuration.get('configId', function(err, data) {
+      console.log('Get configuration');
+      console.log('error: ' + err);
+      console.log('data: ' + data);
+      callback();
+    });
+  },
+
+  function listConfiguration(callback) {
+    client.configuration.list(null, {}, function(err, data) {
+      console.log('List configuration');
+      console.log('error: ' + err);
+      console.log('data: ' + data);
+      callback();
+    });
+  },
+
+  function removeConfiguration(callback) {
+    client.configuration.remove('configId', function(err) {
+      console.log('Remove configuration');
       console.log('error: ' + err);
       console.log('location: ' + url);
       callback();
     });
   },
 
-  function removeConfiguration(callback) {
-    client.configuration.remove(1, function(err, url) {
-      console.log('Remove configuration');
+  function listEvents(callback) {
+    client.events.list(null, {}, function(err, data) {
+      console.log('List events');
       console.log('error: ' + err);
-      console.log('location: ' + url);
+      console.log('data: ' + data);
       callback();
     });
   }
