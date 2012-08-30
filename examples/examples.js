@@ -12,7 +12,7 @@ async.waterfall([
       console.log('Create session');
       console.log('error: ' + err);
       console.log('data: ' + data);
-      callback(id, data.token);
+      callback(null, id, data.token);
     });
   },
 
@@ -21,7 +21,7 @@ async.waterfall([
       console.log('Get session');
       console.log('error: ' + err);
       console.log('data: ' + data);
-      callback(seId, initialToken);
+      callback(null, seId, initialToken);
     });
   },
 
@@ -30,7 +30,7 @@ async.waterfall([
       console.log('Heartbeat session');
       console.log('error: ' + err);
       console.log('next token: ' + nextToken);
-      callback(seId);
+      callback(null, seId);
     });
   },
 
@@ -41,7 +41,7 @@ async.waterfall([
       console.log('Update session');
       console.log('error: ' + err);
       console.log('session id: ' + id);
-      callback(seId);
+      callback(null, seId);
     });
   },
 
@@ -50,7 +50,7 @@ async.waterfall([
       console.log('List sessions');
       console.log('error: ' + err);
       console.log('data: ' + data);
-      callback(seId);
+      callback(null, seId);
     });
   },
 
@@ -112,7 +112,7 @@ async.waterfall([
   },
 
   function listConfiguration(callback) {
-    client.configuration.list(null, {}, function(err, data) {
+    client.configuration.list(null, function(err, data) {
       console.log('List configuration');
       console.log('error: ' + err);
       console.log('data: ' + data);
@@ -124,7 +124,6 @@ async.waterfall([
     client.configuration.remove('configId', function(err) {
       console.log('Remove configuration');
       console.log('error: ' + err);
-      console.log('location: ' + url);
       callback();
     });
   },
