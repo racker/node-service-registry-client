@@ -2,42 +2,54 @@ var async = require('async');
 
 var Client = require('../lib/client').Client;
 
-var client = new Client('http://127.0.0.1:9000/v1.0/', '7777', 'dev', {'debug': true});
+var client = new Client('joe', 'dev', null, {'debug': true,
+  'url': 'http://127.0.0.1:9000/v1.0/',
+  'auth_url': 'http://127.0.0.1:23542/v2.0'});
 
 async.waterfall([
-  function listSessions(callback) {
-    client.sessions.list(null, function(err, url) {
-      console.log('List sessions');
-      console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
-    });
-  },
-
   function createSession(callback) {
-    client.sessions.create(15, null, function(err, url) {
+    client.sessions.create(15, {}, function(err, id, data, hb) {
       console.log('Create session');
       console.log('error: ' + err);
-      console.log('location: ' + url);
-      callback();
+      console.log('data: ' + data);
+      callback(id, data.token);
     });
   },
 
-  function heartbeat(callback) {
-    client.sessions.heartbeat(1, 'someToken', function(err, url) {
+  function getSession(seId, initialToken, callback) {
+    client.sessions.get(seId, function(err, data) {
+      console.log('Create session');
+      console.log('error: ' + err);
+      console.log('data: ' + data);
+      callback(seId, initialToken);
+    });
+  },
+
+  function heartbeat(seId, initialToken, callback) {
+    client.sessions.heartbeat(seId, initialToken, function(err, nextToken) {
       console.log('Heartbeat');
       console.log('error: ' + err);
-      console.log('location: ' + url);
+      console.log('next token: ' + nextToken);
+      callback(seId);
+    });
+  },
+
+  function updateSession(seId, callback) {
+    var payload = {'heartbeat_timeout': 20};
+
+    client.sessions.update(seId, payload, function(err, id) {
+      console.log('Update session');
+      console.log('error: ' + err);
+      console.log('session id: ' + id);
       callback();
     });
   },
 
-  function updateSession(callback) {
-    var payload = {'heartbeat_timeout': 20};
-    client.sessions.update(1, payload, function(err, url) {
-      console.log('Update session');
+  function listSessions(callback) {
+    client.sessions.list(null, function(err, data) {
+      console.log('List sessions');
       console.log('error: ' + err);
-      console.log('location: ' + url);
+      console.log('data: ' + data);
       callback();
     });
   },
