@@ -1,0 +1,59 @@
+{
+    "name": "service-registry-client",
+    "description": "Node.js client for Rackspace Service Registry.",
+    "version": "0.1.0",
+    "author": "Rackspace Hosting <sr@rackspace.com>",
+    "contributors": [
+        {
+            "name": "Shawn Smith",
+            "email": "shawn.smith@rackspace.com",
+            "url": "http://shawnps.net"
+        },
+        {
+            "name": "Tomaz Muraus",
+            "email": "tomaz.muraus@rackspace.com",
+            "url": "http://www.tomaz.me"
+        }
+    ],
+    "keywords": [
+        "rackspace",
+        "cloud",
+        "service registry",
+        "service discovery",
+        "registry"
+    ],
+    "homepage": "https://github.com/racker/node-service-registry-client",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/racker/node-service-registry-client.git"
+    },
+    "directories": {
+        "lib": "./lib",
+        "example": "./examples"
+    },
+    "scripts": {
+        "lint": "./scripts/lint.sh",
+        "test": "./scripts/tests.sh"
+    },
+    "dependencies": {
+        "async": "= 0.1.22",
+        "sprintf": "= 0.1.1",
+        "logmagic": "= 0.1.4",
+        "rackspace-shared-utils": "0.1.14",
+        "keystone-client": ">= 0.3.0"
+    },
+    "devDependencies": {
+        "whiskey": "0.6.9",
+        "jshint": "0.5.9"
+    },
+    "engines": {
+        "node": ">= 0.6.0 && < 0.9.0"
+    },
+    "main": "./lib/index.js",
+    "licenses": [
+        {
+            "type": "Apache",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    ]
+}
