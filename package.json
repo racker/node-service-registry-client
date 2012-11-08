@@ -1,7 +1,7 @@
 {
     "name": "service-registry-client",
     "description": "Node.js client for Rackspace Service Registry.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": "Rackspace Hosting <sr@rackspace.com>",
     "contributors": [
         {
@@ -13,6 +13,11 @@
             "name": "Tomaz Muraus",
             "email": "tomaz.muraus@rackspace.com",
             "url": "http://www.tomaz.me"
+        },
+        {
+            "name": "Gary Dusbabek",
+            "email": "gdusbabek@gmail.com",
+            "url": "http://www.onemanclapping.org"
         }
     ],
     "keywords": [
@@ -39,7 +44,7 @@
         "async": "= 0.1.22",
         "sprintf": "= 0.1.1",
         "logmagic": "= 0.1.4",
-        "rackspace-shared-utils": "0.1.14",
+        "rackspace-shared-utils": "0.1.15",
         "keystone-client": ">= 0.3.0"
     },
     "devDependencies": {
