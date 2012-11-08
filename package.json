@@ -1,7 +1,7 @@
 {
     "name": "service-registry-client",
     "description": "Node.js client for Rackspace Service Registry.",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": "Rackspace Hosting <sr@rackspace.com>",
     "contributors": [
         {
@@ -44,7 +44,7 @@
         "async": "= 0.1.22",
         "sprintf": "= 0.1.1",
         "logmagic": "= 0.1.4",
-        "rackspace-shared-utils": "0.1.15",
+        "rackspace-shared-utils": "0.1.16",
         "keystone-client": ">= 0.3.0"
     },
     "devDependencies": {
