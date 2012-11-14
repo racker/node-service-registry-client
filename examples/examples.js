@@ -30,6 +30,12 @@ async.waterfall([
       console.log('error: ' + err);
       console.log('data: ' + data);
       callback(null, id, data.token);
+      
+      // optional:
+      // hb.start();
+      hb.on('error', function(err) {
+        // recover. Probably recreate the session and start up again.
+      });
     });
   },
 
