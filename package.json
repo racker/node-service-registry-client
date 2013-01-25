@@ -1,7 +1,7 @@
 {
     "name": "service-registry-client",
     "description": "Node.js client for Rackspace Service Registry.",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "author": "Rackspace Hosting <sr@rackspace.com>",
     "contributors": [
         {
