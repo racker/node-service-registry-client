@@ -15,6 +15,7 @@
  *
  */
 
+var util = require('util');
 var async = require('async');
 
 var Client = require('../lib/client').Client;
@@ -24,78 +25,51 @@ var client = new Client('joe', 'dev', null, {'debug': true,
   'authUrl': 'http://127.0.0.1:23542/v2.0'});
 
 async.waterfall([
-  function createSession(callback) {
-    client.sessions.create(15, {}, function(err, id, data, hb) {
-      console.log('Create session');
-      console.log('error: ' + err);
-      console.log('data: ' + data);
-      callback(null, id, data.token);
-      
-      // optional:
-      // hb.start();
-      hb.on('error', function(err) {
-        // recover. Probably recreate the session and start up again.
-      });
-    });
-  },
-
-  function getSession(seId, initialToken, callback) {
-    client.sessions.get(seId, function(err, data) {
-      console.log('Get session');
-      console.log('error: ' + err);
-      console.log('data: ' + data);
-      callback(null, seId, initialToken);
-    });
-  },
-
-  function heartbeatSession(seId, initialToken, callback) {
-    client.sessions.heartbeat(seId, initialToken, function(err, nextToken) {
-      console.log('Heartbeat session');
-      console.log('error: ' + err);
-      console.log('next token: ' + nextToken);
-      callback(null, seId);
-    });
-  },
-
-  function updateSession(seId, callback) {
-    var payload = {'heartbeat_timeout': 20};
-
-    client.sessions.update(seId, payload, function(err, id) {
-      console.log('Update session');
-      console.log('error: ' + err);
-      console.log('session id: ' + id);
-      callback(null, seId);
-    });
-  },
-
-  function listSessions(seId, callback) {
-    client.sessions.list(null, function(err, data) {
-      console.log('List sessions');
-      console.log('error: ' + err);
-      console.log('data: ' + data);
-      callback(null, seId);
-    });
-  },
-
-  function createService(seId, callback) {
+  function createService(callback) {
     var payload = {
       'tags': ['tag1', 'tag2'],
       'metadata': {'region': 'dfw', 'port': '9000'}
     };
 
-    client.services.create(seId, 'serviceId', payload, function(err, id) {
+    client.services.create('serviceId', 15, payload, function(err, data, hb) {
       console.log('Create service');
       console.log('error: ' + err);
-      console.log('service id: ' + id);
-      callback();
+      console.log('data: ' + data);
+
+      // optional:
+      // hb.start();
+      hb.on('error', function(err) {
+        // recover. Probably recreate the session and start up again.
+      });
+
+      callback(null, data.token);
     });
   },
 
-  function getService(callback) {
+  function getService(initialToken, callback) {
     client.services.get('serviceId', function(err, data) {
       console.log('Get service');
       console.log('error: ' + err);
       console.log('data: ' + data);
+      callback(null, initialToken);
+    });
+  },
+
+  function heartbeatService(initialToken, callback) {
+    client.services.heartbeat('serviceId', initialToken, function(err, nextToken) {
+      console.log('Heartbeat services');
+      console.log('error: ' + err);
+      console.log('next token: ' + nextToken);
+      callback();
+    });
+  },
+
+  function updateService(callback) {
+    var payload = {'heartbeat_timeout': 20};
+
+    client.services.update('serviceId', payload, function(err, id) {
+      console.log('Update service');
+      console.log('error: ' + err);
       callback();
     });
   },
@@ -155,7 +129,7 @@ async.waterfall([
     client.events.list(null, {}, function(err, data) {
       console.log('List events');
       console.log('error: ' + err);
-      console.log('data: ' + data);
+      console.log('data: ' + util.inspect(data));
       callback();
     });
   }
