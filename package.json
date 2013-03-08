@@ -44,15 +44,15 @@
         "test": "./scripts/tests.sh"
     },
     "dependencies": {
-        "async": "= 0.1.22",
-        "sprintf": "= 0.1.1",
-        "logmagic": "= 0.1.4",
-        "rackspace-shared-utils": ">= 0.1.17",
-        "keystone-client": ">= 0.3.0"
+        "async": "0.1.x",
+        "sprintf": "= 0.1.x",
+        "logmagic": "= 0.1.x",
+        "rackspace-shared-utils": "0.1.x",
+        "keystone-client": "0.3.x"
     },
     "devDependencies": {
-        "whiskey": "0.6.9",
-        "jshint": "0.5.9"
+        "whiskey": "0.6.x",
+        "jshint": "0.5.x"
     },
     "engines": {
         "node": ">= 0.6.0 && < 0.9.0"
