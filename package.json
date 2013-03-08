@@ -25,6 +25,9 @@
         "cloud",
         "service registry",
         "service discovery",
+        "configuration storage",
+        "configuration management",
+        "dynamic configuration",
         "registry"
     ],
     "homepage": "https://github.com/racker/node-service-registry-client",
