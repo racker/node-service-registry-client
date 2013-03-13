@@ -19,7 +19,7 @@ var async = require('async');
 
 var Client = require('../lib/client').Client;
 
-var client = new Client('joe', 'dev', null, {"logToConsole": true,
+var client = new Client('joe', 'dev', null, {'logToConsole': true,
   'url': 'http://127.0.0.1:9000/v1.0/',
   'authUrl': 'http://127.0.0.1:23542/v2.0'});
 
